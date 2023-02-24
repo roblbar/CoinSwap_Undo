@@ -1,11 +1,9 @@
-/* ------------------------------------------------
-* Author: Robert L Barrera
-* Class: CS 141, Fall 2016
-* Program: #6, CoinSwap Undo
-* System: Windows 10, Visual Studio
-* TA: HoangMinh  HuynhNguyen, Tue 11am-11:50
-* Nov 28, 2016
-* -------------------------------------------------
+/*
+/ Robert Barrera
+/ CS 141 at UIC
+/ Program 6: COINSWAP UNDO
+/
+/ Retry of Program 6 in CS 141 in C++
 */
 
 #include <iostream>		// For standard input output
@@ -24,9 +22,9 @@ const int BoardSize = 5;
 // Displays programmer's information
 void displayProgrammerInfo() {
 	cout << "Author: Robert L Barrera\n";
-	cout << "Class: CS 141, Program: #6, CoinSwap Undo\n";
-	cout << "TA: HoangMinh  HuynhNguyen, Tue 11am-11:50\n";
-	cout << "Nov 28, 2016\n\n";
+	cout << "Program: #6, CoinSwap Undo\n";
+	cout << "TA: Forgot\n";
+	cout << "Feb 01, 2023\n\n";
 }
 
 
@@ -65,6 +63,7 @@ bool notDone(char board[])
 void displayList(GameMove *lastMove) {
 	GameMove *tempMove = lastMove;	// Temp move for moving through list
 	cout << "   List: ";
+
 	while (tempMove != NULL) {	// Skip printing list if first node is null
 		cout << tempMove->moveNumber << "[";	// Print mover number
 		cout << tempMove->board;	// Print board
@@ -72,6 +71,7 @@ void displayList(GameMove *lastMove) {
 
 		tempMove = tempMove->toLastMove;	// Move tempMove to next GameMove
 	}
+
 	cout << endl;
 }
 
@@ -98,8 +98,8 @@ void displayBoard(char board[], GameMove *lastMove)
 		tempMove = tempMove->toLastMove;	// Move tempMove to last GameMove
 		cout << tempMove->moveNumber;		// Print previous GameMove
 	}
+
 	cout << endl << endl;
-	//cout << endl;
 }
 
 
@@ -117,26 +117,13 @@ void addGameMovetoList(char board[], int currentMoveNumber, GameMove *&lastMove)
 // Undo last move in list
 void undoLastMove(GameMove *&lastMove, int &moveNumber) {
 	GameMove *tempMove = lastMove;	// Points tempMove to last GameMove
+
 	if (lastMove->toLastMove != NULL) {
 		lastMove = lastMove->toLastMove;	// LastMove now points to the 2nd last move in list
 		delete tempMove;		// Deletes the GameMove tempMove points to
 		--moveNumber;			// Remove last move number
 		cout << "* Undoing move *" << endl;
 	}
-}
-
-
-// Check for valid move on board
-bool checkForValidMove(char board[], int source, int destination) {
-	if (board[source] == 'X') {
-		if (board[source + 1] == ' ') {
-			return true;
-		}
-	}
-	if (board[source] == 'O') {
-
-	}
-	return false;
 }
 
 
@@ -151,7 +138,7 @@ void promptForAndGetMove(char board[], int &moveNumber,
 	while (true) {
 		cout << moveNumber << ". Enter source and destination: ";
 		cin >> userInput;
-		// See if user input of 0 was given to exit the program
+		// See if user input of x was given to exit the program
 		if (userInput == 'x') {
 			cout << "\n";
 			cout << "Exiting program...\n";
@@ -289,7 +276,7 @@ int main() {
 			continue;
 		}
 
-		// Make move.  Note that no move validation is being done.
+		// Make move.  
 		board[destination] = board[source];
 		board[source] = ' ';
 		moveNumber++;
